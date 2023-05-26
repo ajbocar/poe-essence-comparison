@@ -1,3 +1,13 @@
+# Path of Exile High Essence Conversion Helper
+
+## Description
+
+Helps a player determine if converting from Shrieking to Deafening will give more value when selling your essences.
+
+## TODO
+League selection
+Move data processing to api layer
+
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started

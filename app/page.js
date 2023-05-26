@@ -1,95 +1,76 @@
-import Image from 'next/image'
-import styles from './page.module.css'
+"use client";
+
+import { useState, useEffect } from "react";
+import axios from "axios";
+
+const urlForEssences = "http://localhost:3000/api/essence";
+const shriekingPrefix = "Shrieking Essence of";
+const deafeningPrefix = "Deafening Essence of";
 
 export default function Home() {
+  const [tableData, setTableData] = useState(null);
+
+  useEffect(() => {
+    axios.get(urlForEssences).then((response) => {
+      processResponse(response.data.data.lines);
+    });
+  }, []);
+
+  const processResponse = (data) => {
+    let tableArray = [];
+    let shriekingArray = data.filter((item) =>
+      item.name.includes(shriekingPrefix)
+    );
+    let deafeningArray = data.filter((item) =>
+      item.name.includes(deafeningPrefix)
+    );
+    shriekingArray.forEach((item) => {
+      let matchingDeafening = deafeningArray.filter(
+        (item2) => item2.baseType === item.baseType
+      );
+      tableArray.push({
+        base: item.baseType,
+        shriekingCost: item.chaosValue,
+        deafeningCost: matchingDeafening[0].chaosValue,
+      });
+    });
+    setTableData(tableArray);
+  };
+
   return (
-    <main className={styles.main}>
-      <div className={styles.description}>
-        <p>
-          Get started by editing&nbsp;
-          <code className={styles.code}>app/page.js</code>
-        </p>
-        <div>
-          <a
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className={styles.vercelLogo}
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
-
-      <div className={styles.center}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
-
-      <div className={styles.grid}>
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Docs <span>-&gt;</span>
-          </h2>
-          <p>Find in-depth information about Next.js features and API.</p>
-        </a>
-
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Learn <span>-&gt;</span>
-          </h2>
-          <p>Learn about Next.js in an interactive course with&nbsp;quizzes!</p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Templates <span>-&gt;</span>
-          </h2>
-          <p>Explore the Next.js 13 playground.</p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className={styles.card}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2>
-            Deploy <span>-&gt;</span>
-          </h2>
-          <p>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
+    <main class="container">
+      <h1>Hello, world!</h1>
+      <table role="grid">
+        <thead>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Shrieking</th>
+            <th scope="col">Deafening</th>
+            <th scope="col">Convert?</th>
+          </tr>
+        </thead>
+        <tbody>
+          {tableData &&
+            tableData.map((item) => (
+              <tr key={item.base}>
+                <td>{item.base}</td>
+                <td>{item.shriekingCost}</td>
+                <td>{item.deafeningCost}</td>
+                <td>
+                  {item.shriekingCost * 3 >= item.deafeningCost ? "N" : "Y"}
+                </td>
+              </tr>
+            ))}
+        </tbody>
+        <tfoot>
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Shrieking</th>
+            <th scope="col">Deafening</th>
+            <th scope="col">Convert?</th>
+          </tr>
+        </tfoot>
+      </table>
     </main>
-  )
+  );
 }
