@@ -3,17 +3,16 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const urlForEssences = "http://localhost:3000/api/essence";
+const urlForEssences = process.env.NEXT_PUBLIC_OWN_API_URL + "/api/essence";
 const shriekingPrefix = "Shrieking Essence of";
 const deafeningPrefix = "Deafening Essence of";
 
 export default function Home() {
   const [tableData, setTableData] = useState(null);
-
   useEffect(() => {
     axios.get(urlForEssences).then((response) => {
       processResponse(response.data.data.lines);
-    });
+    });    
   }, []);
 
   const processResponse = (data) => {
