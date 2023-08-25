@@ -16,8 +16,8 @@ export default function Home() {
   useEffect(() => {
     setIsLoading(true);
     axios.get(urlForLeagues).then((response) => {
-      setLeagues(response.data.data.economyLeagues);
-      setSelectedLeague(response.data.data.economyLeagues[0].name);
+      setLeagues(response.data.returnData);
+      setSelectedLeague(response.data.returnData[0].id);
       setIsLoading(false);
     });
   }, []);
@@ -51,8 +51,8 @@ export default function Home() {
         >
           {leagues &&
             leagues.map((league) => (
-              <option key={league.name} value={league.name}>
-                {league.name}
+              <option key={league.id} value={league.id}>
+                {league.id}
               </option>
             ))}
         </select>
