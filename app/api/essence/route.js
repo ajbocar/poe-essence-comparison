@@ -11,7 +11,12 @@ export async function GET(request) {
   const league = searchParams.get("league") || "Standard";
   const res = await fetch(urlForEssences + league);
   const data = await res.json();
+  //console.log(data);
   return NextResponse.json(processResponse(data));
+}
+
+const removeEssencePrefix = (essenceName) => {
+  return essenceName.replace(shriekingPrefix,"").replace(deafeningPrefix,"");
 }
 
 const processResponse = (data) => {
@@ -23,12 +28,14 @@ const processResponse = (data) => {
   let deafeningArray = rawData.filter((item) =>
     item.name.includes(deafeningPrefix)
   );
+  //console.log(shriekingArray);
+  //console.log(deafeningArray);
   shriekingArray.forEach((item) => {
     let matchingDeafening = deafeningArray.filter(
-      (item2) => item2.baseType === item.baseType
+      (item2) => removeEssencePrefix(item2.baseType) === removeEssencePrefix(item.baseType)
     );
     tableArray.push({
-      base: item.baseType,
+      base: removeEssencePrefix(item.baseType),
       shriekingCost: item.chaosValue,
       deafeningCost: matchingDeafening[0].chaosValue,
     });
