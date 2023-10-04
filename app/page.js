@@ -85,13 +85,13 @@ export default function Home() {
               tableData.length > 0 &&
               tableData.map((item) =>
                 isRecommended &&
-                item.shriekingCost * 3 >= item.deafeningCost ? null : (
+                item.shriekingCost * 3 > item.deafeningCost ? null : (
                   <tr key={item.base}>
                     <td>{item.base}</td>
                     <td>{item.shriekingCost}</td>
                     <td>{item.deafeningCost}</td>
                     <td>
-                      {item.shriekingCost * 3 >= item.deafeningCost ? "N" : "Y"}
+                      {item.shriekingCost * 3 > item.deafeningCost ? "N" : "Y"}
                     </td>
                   </tr>
                 )
