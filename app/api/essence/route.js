@@ -11,7 +11,7 @@ export async function GET(request) {
   const league = searchParams.get("league") || "Standard";
   const res = await fetch(urlForEssences + league);
   if (res.headers.get('content-type') !== 'application/json') {
-    res.status(404).json({ error: 'failed to load data' })
+    NextResponse.status(404).json({ error: 'failed to load data' })
   };
   const data = await res.json();
   //console.log(data);
