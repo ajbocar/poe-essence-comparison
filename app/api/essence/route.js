@@ -10,6 +10,9 @@ export async function GET(request) {
   const { searchParams } = new URL(request.url);
   const league = searchParams.get("league") || "Standard";
   const res = await fetch(urlForEssences + league);
+  if (res.headers.get('content-type') !== 'application/json') {
+    res.status(404).json({ error: 'failed to load data' })
+  };
   const data = await res.json();
   //console.log(data);
   return NextResponse.json(processResponse(data));
