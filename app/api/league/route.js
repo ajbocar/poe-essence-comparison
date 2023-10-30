@@ -7,7 +7,7 @@ const nonTradeStrings = ["SSF", "Ruthless"];
 export async function GET() {
   const res = await fetch(urlForLeagues);
   if (res.headers.get('content-type') !== 'application/json') {
-    return null;
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
   };
   const data = await res.json();
   let tempLeagues = data.filter((league) => league.endAt !== null);

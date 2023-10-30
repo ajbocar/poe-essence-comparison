@@ -11,7 +11,7 @@ export async function GET(request) {
   const league = searchParams.get("league") || "Standard";
   const res = await fetch(urlForEssences + league);
   if (res.headers.get('content-type') !== 'application/json') {
-    return null;
+    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
   };
   const data = await res.json();
   //console.log(data);
