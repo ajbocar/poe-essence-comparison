@@ -4,6 +4,8 @@ const urlForLeagues = "https://www.pathofexile.com/api/leagues";
 
 const nonTradeStrings = ["SSF", "Ruthless"];
 
+export const revalidate = 0; //cache???
+
 export async function GET() {
   const res = await fetch(urlForLeagues);
   if (res.headers.get('content-type') !== 'application/json') {
