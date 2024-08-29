@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 const urlForLeagues = "https://www.pathofexile.com/api/leagues";
 
-const nonTradeStrings = ["SSF", "Ruthless"];
+const nonTradeStrings = ["SSF", "Ruthless", "Solo Self-Found"];
 
 export const revalidate = 0; //cache???
 
@@ -13,10 +13,12 @@ export async function GET() {
   };
   const data = await res.json();
   console.log(data);
-  let tempLeagues = data.filter((league) => league.endAt !== null);
+  let tempLeagues = data.filter((league) => league.startAt !== null);
+  console.log(tempLeagues);
   let tempTradeLeagues = tempLeagues.filter(
     (league) => !nonTradeStrings.some((v) => league.id.includes(v))
   );
+  console.log(tempTradeLeagues);
   let returnData = [
     ...tempTradeLeagues,
     { id: "Standard" }
