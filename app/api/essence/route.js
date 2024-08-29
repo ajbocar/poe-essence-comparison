@@ -31,8 +31,8 @@ const processResponse = (data) => {
   let deafeningArray = rawData.filter((item) =>
     item.name.includes(deafeningPrefix)
   );
-  //console.log(shriekingArray);
-  //console.log(deafeningArray);
+  console.log(shriekingArray);
+  console.log(deafeningArray);
   shriekingArray.forEach((item) => {
     let matchingDeafening = deafeningArray.filter(
       (item2) => removeEssencePrefix(item2.baseType) === removeEssencePrefix(item.baseType)

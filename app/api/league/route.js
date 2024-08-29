@@ -10,6 +10,7 @@ export async function GET() {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 })
   };
   const data = await res.json();
+  console.log(data);
   let tempLeagues = data.filter((league) => league.endAt !== null);
   let tempTradeLeagues = tempLeagues.filter(
     (league) => !nonTradeStrings.some((v) => league.id.includes(v))
