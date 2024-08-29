@@ -21,5 +21,6 @@ export async function GET() {
     ...tempTradeLeagues,
     { id: "Standard" }
   ];
+  console.log(returnData);
   return NextResponse.json({ returnData });
 }
