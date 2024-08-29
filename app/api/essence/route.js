@@ -39,6 +39,7 @@ const processResponse = (data) => {
     );
     tableArray.push({
       base: removeEssencePrefix(item.baseType),
+      iconUrl: item.icon,
       shriekingCost: item.chaosValue,
       deafeningCost: matchingDeafening[0].chaosValue,
     });

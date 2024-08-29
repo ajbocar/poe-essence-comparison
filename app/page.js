@@ -87,7 +87,7 @@ export default function Home() {
                 isRecommended &&
                 item.shriekingCost * 3 > item.deafeningCost ? null : (
                   <tr key={item.base}>
-                    <td>{item.base}</td>
+                    <td><img src={item.iconUrl} /> {item.base}</td>
                     <td>{item.shriekingCost}</td>
                     <td>{item.deafeningCost}</td>
                     <td>
