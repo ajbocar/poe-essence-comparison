@@ -3,8 +3,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-const urlForEssences = process.env.NEXT_PUBLIC_OWN_API_URL + "/api/essence";
-const urlForLeagues = process.env.NEXT_PUBLIC_OWN_API_URL + "/api/league";
+//const urlForEssences = process.env.NEXT_PUBLIC_OWN_API_URL + "/api/essence";
+//const urlForLeagues = process.env.NEXT_PUBLIC_OWN_API_URL + "/api/league";
+const urlForEssences = "/api/essence";
+const urlForLeagues = "/api/league";
 
 export default function Home() {
   const [tableData, setTableData] = useState(null);
